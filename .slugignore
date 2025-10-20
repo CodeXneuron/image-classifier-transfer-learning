@@ -1,4 +1,3 @@
-# local/temporary stuff
 .venv/
 __pycache__/
 *.ipynb
@@ -10,14 +9,12 @@ __pycache__/
 *.ckpt
 *.onnx
 
-# git & docs
 .git/
 .gitignore
 README.md
 *.png
 *.jpg
 
-# training artifacts
 logs/
 checkpoints/
 data/

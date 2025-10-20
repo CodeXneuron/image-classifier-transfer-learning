@@ -1,5 +1,6 @@
-flask>=3.0
-tensorflow==2.20.0
-pillow>=10.0
-numpy>=1.25
-gunicorn>=21.2
+streamlit==1.38.0
+tensorflow-cpu==2.17.0
+numpy==1.26.4
+pandas
+Pillow
+protobuf<5

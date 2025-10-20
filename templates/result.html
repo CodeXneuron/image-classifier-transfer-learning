@@ -1,22 +1,39 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Prediction</title>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:40px; }
-    .card { border:1px solid #e5e7eb; border-radius:14px; padding:18px; max-width:640px; }
-    .pill { display:inline-block; padding:4px 10px; border-radius:999px; background:#eef2ff; border:1px solid #e0e7ff; }
-  </style>
-</head>
-<body>
-  <h1>✅ Prediction</h1>
-  <div class="card">
-    <p><span class="pill">File</span> {{ filename }}</p>
-    <p><span class="pill">Label</span> <b>{{ label }}</b></p>
-    <p><span class="pill">Confidence (Class 1)</span> {{ prob_pct }}%</p>
-    <p><span class="pill">Threshold</span> {{ threshold }}%</p>
-    <p><a href="/">← Try another</a></p>
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-3">Prediction Result</h1>
+
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <span class="badge rounded-pill {{ badge_class }} px-3 py-2">{{ label }}</span>
+          <span class="text-muted small">File: <code>{{ filename }}</code></span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small">Confidence (Class 1)</label>
+          <div class="progress" role="progressbar" aria-valuenow="{{ prob_pct }}" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar {{ bar_class }}" style="width: {{ prob_pct }}%">{{ prob_pct }}%</div>
+          </div>
+          <div class="small text-muted mt-1">Threshold: {{ threshold }}%</div>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">← Try another image</a>
+      </div>
+    </div>
   </div>
-</body>
-</html>
+
+  <div class="col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-3">
+        {% if preview_dataurl %}
+          <img src="{{ preview_dataurl }}" alt="Preview" class="img-fluid rounded-3 border">
+        {% else %}
+          <div class="text-center text-muted small py-5">Preview not available</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

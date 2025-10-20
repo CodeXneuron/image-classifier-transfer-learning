@@ -1,23 +1,73 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Binary Image Classifier</title>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:40px; }
-    .card { border:1px solid #e5e7eb; border-radius:14px; padding:18px; max-width:640px; }
-    button { padding:10px 16px; border-radius:10px; border:1px solid #e5e7eb; cursor:pointer; }
-    .muted{color:#6b7280;}
-  </style>
-</head>
-<body>
-  <h1>🧠 Binary Image Classifier</h1>
-  <p class="muted">Classes: <b>{{ class0 }}</b> vs <b>{{ class1 }}</b> · Threshold: {{ threshold }}%</p>
-  <div class="card">
-    <form action="/predict" method="post" enctype="multipart/form-data">
-      <p><input type="file" name="image" accept="image/png, image/jpeg" required></p>
-      <p><button type="submit">Predict</button></p>
-    </form>
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-3">Upload an Image</h1>
+        <p class="text-muted small mb-4">
+          Classes: <span class="badge text-bg-secondary">{{ class0 }}</span>
+          vs <span class="badge text-bg-secondary">{{ class1 }}</span>
+          · Threshold: <span class="badge text-bg-light border">{{ threshold }}%</span>
+        </p>
+
+        <a href="https://medium.com/@deshapriyakosala" target="_blank" class="btn btn-outline-success mt-3">
+  📘 Read My Medium Article
+</a>
+
+
+        <form action="{{ url_for('predict_route') }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label class="form-label">Choose file</label>
+            <input class="form-control" type="file" name="image" accept="image/png, image/jpeg" required>
+            <div class="invalid-feedback">Please select a PNG or JPG image.</div>
+          </div>
+
+          <div class="text-end">
+            <button class="btn btn-success px-4" type="submit">Predict</button>
+          </div>
+        </form>
+
+        <hr class="my-4">
+
+        <div class="dropzone p-4 border rounded-3 text-center">
+          <p class="mb-1">Or drag & drop your image here</p>
+          <small class="text-muted">PNG or JPG</small>
+        </div>
+      </div>
+    </div>
   </div>
-</body>
-</html>
+
+  <div class="col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h5">About</h2>
+        <p class="small text-muted">
+          This app runs a Convolutional Neural Network (CNN) trained on {{ target_size[0] }}×{{ target_size[1] }} images to classify
+          <b>{{ class0 }}</b> vs <b>{{ class1 }}</b>. Your image is resized and normalized before inference.
+        </p>
+        <ul class="small ms-3">
+          <li>Supports JPG/PNG</li>
+          <li>Shows predicted label & confidence</li>
+          <li>No data is stored on the server</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Simple drag & drop -> uses the hidden file input
+  const dz = document.querySelector('.dropzone');
+  const fi = document.querySelector('input[type=file]');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragging'); });
+  dz.addEventListener('dragleave', e => { dz.classList.remove('dragging'); });
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('dragging');
+    if (e.dataTransfer.files.length) {
+      fi.files = e.dataTransfer.files;
+      fi.closest('form').submit();
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,16 @@
+body { background: #f8fafb; }
+.dropzone { background: #f3f6f8; transition: all .15s ease; }
+.dropzone.dragging { background: #e9f6ec; border-color: #86d19e !important; }
+.card { border-radius: 14px; }
+.progress { height: 1.25rem; }
+footer {
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+footer a {
+  transition: color 0.2s ease-in-out;
+}
+footer a:hover {
+  color: #1e7d32;
+}

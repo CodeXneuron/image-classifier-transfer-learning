@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Binary Image Classifier</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:40px; }
+    .card { border:1px solid #e5e7eb; border-radius:14px; padding:18px; max-width:640px; }
+    button { padding:10px 16px; border-radius:10px; border:1px solid #e5e7eb; cursor:pointer; }
+    .muted{color:#6b7280;}
+  </style>
+</head>
+<body>
+  <h1>🧠 Binary Image Classifier</h1>
+  <p class="muted">Classes: <b>{{ class0 }}</b> vs <b>{{ class1 }}</b> · Threshold: {{ threshold }}%</p>
+  <div class="card">
+    <form action="/predict" method="post" enctype="multipart/form-data">
+      <p><input type="file" name="image" accept="image/png, image/jpeg" required></p>
+      <p><button type="submit">Predict</button></p>
+    </form>
+  </div>
+</body>
+</html>

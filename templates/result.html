@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Prediction</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:40px; }
+    .card { border:1px solid #e5e7eb; border-radius:14px; padding:18px; max-width:640px; }
+    .pill { display:inline-block; padding:4px 10px; border-radius:999px; background:#eef2ff; border:1px solid #e0e7ff; }
+  </style>
+</head>
+<body>
+  <h1>✅ Prediction</h1>
+  <div class="card">
+    <p><span class="pill">File</span> {{ filename }}</p>
+    <p><span class="pill">Label</span> <b>{{ label }}</b></p>
+    <p><span class="pill">Confidence (Class 1)</span> {{ prob_pct }}%</p>
+    <p><span class="pill">Threshold</span> {{ threshold }}%</p>
+    <p><a href="/">← Try another</a></p>
+  </div>
+</body>
+</html>
